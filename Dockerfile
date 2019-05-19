@@ -18,15 +18,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-FROM ubuntu:bionic
+FROM balenalib/raspberrypi3
 
 # install the team-xbmc ppa
-RUN apt-get update                                                        && \
-    apt-get install -y --no-install-recommends software-properties-common && \
-    add-apt-repository ppa:team-xbmc/ppa                                  && \
-    apt-get -y purge openssl software-properties-common                   && \
-    apt-get -y --purge autoremove                                         && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update   
 
 # besides kodi, we will install a few extra packages:
 #  - ca-certificates              allows Kodi to properly establish HTTPS connections
@@ -40,7 +35,7 @@ RUN apt-get update                                                        && \
 RUN packages="                                               \
                                                              \
     ca-certificates                                          \
-    kodi=2:18.*                                              \
+    kodi=                                                    \
     kodi-eventclients-kodi-send                              \
     kodi-game-libretro                                       \
     kodi-inputstream-rtmp                                    \
@@ -57,7 +52,6 @@ RUN packages="                                               \
     kodi-pvr-mythtv                                          \
     kodi-pvr-nextpvr                                         \
     kodi-pvr-njoy                                            \
-    kodi-pvr-octonet                                         \
     kodi-pvr-pctv                                            \
     kodi-pvr-stalker                                         \
     kodi-pvr-teleboy                                         \
@@ -66,7 +60,8 @@ RUN packages="                                               \
     kodi-pvr-vuplus                                          \
     kodi-pvr-wmc                                             \
     kodi-pvr-zattoo                                          \
-    pulseaudio                                               \
+    alsa-base                                                \
+    alse-tools                                               \
     tzdata"                                               && \
                                                              \
     apt-get update                                        && \
