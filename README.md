@@ -1,6 +1,6 @@
 # erichough/kodi
 
-Dockerized Kodi with audio and video.
+Dockerized Kodi with audio and video from a dietpi host
 
 ![Kodi screenshot](https://kodi.tv/sites/default/files/page/field_image/about--devices.jpg "Kodi screenshot")
 
@@ -47,12 +47,12 @@ Below is an example command (split into multiple lines for clarity) that starts 
 PulseAudio sound, hardware video acceleration, a persistent Kodi home directory, and a shared read-only Docker mount for
 media files:
 
-    $ x11docker --xorg                                 \
-                --pulseaudio                           \
-                --gpu                                  \
-                --homedir /host/path/to/kodi/home      \
-                -- -v /host/path/to/media:/media:ro -- \
-                erichough/kodi
+    $  x11docker --xorg \
+                 --gpu  \
+                 --homedir /mnt/dietpi_userdata/kodi/ \
+                 -- -v /mnt/dietpi_userdata/Video/:/media:ro \
+                 --device /dev/vchiq:/dev/vchiq -- \ 
+                my/path/to/docker/img
            
 Note that the optional argument passed between a pair of `--` defines additional arguments to be passed to `docker run`.
 
